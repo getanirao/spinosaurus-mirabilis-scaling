@@ -1,28 +1,21 @@
 # Spinosaurus mirabilis scaling
 
-This repository contains a small, source-backed analysis prototype for studying `Spinosaurus mirabilis` in context with `S. aegyptiacus`.
+This repository contains a small, source-backed analysis prototype for studying `Spinosaurus mirabilis` with a combined lens:
 
-The current focus is not just raw size comparison. The repo is organized around two complementary questions:
+- quantitative morphology
+- density context from the better-documented `S. aegyptiacus` literature
+- qualitative ecological context
 
-1. What measurement and scaling signals distinguish `S. mirabilis` from better-documented spinosaurids?
-2. What ecological context makes `S. mirabilis` meaningfully different from `S. aegyptiacus`?
+The goal is not to predict geology. It is to use measurements and contextual evidence together to make a species-level generalization about what makes `S. mirabilis` distinctive.
 
-## What the data says
+## Working idea
 
-The current habitat coding is based on 10 evidence rows from 5 public sources. The coded result is:
+The current hypothesis is that `S. mirabilis` is best interpreted as:
 
-| Taxon | Inland-riparian | Coastal-inland margin | Coastal margin | Nearshore/marginal | Inland access | Interpretation |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| `S. mirabilis` | 14.0 | 0.0 | 0.0 | 0.0 | 0.0 | Strongly inland-riparian |
-| `S. aegyptiacus` | 0.0 | 5.0 | 2.0 | 3.0 | 2.0 | Mixed, coastal-leaning |
-
-That is the reason the README now claims a habitat contrast:
-
-- `S. mirabilis` is not just "water-adjacent"; it is coded as strongly inland-riparian.
-- `S. aegyptiacus` has mixed evidence and still leans toward coastal / marginal-water context.
-- The difference is large enough to support a working hypothesis that `S. mirabilis` may represent a more explicitly inland display ecology.
-
-This is still a hypothesis, not a final conclusion. But now the hypothesis is anchored in a coded evidence table instead of only narrative prose.
+- a crest-dominant spinosaur
+- with an inland-riparian ecological setting
+- whose novelty is strongest in display morphology and habitat differentiation
+- rather than in any claim that density alone proves a new aquatic mode
 
 ## What is included
 
@@ -33,7 +26,10 @@ This is still a hypothesis, not a final conclusion. But now the hypothesis is an
   Summarizes public claims about `S. mirabilis` and the UChicago Fossil Lab into a compact quantitative report.
 
 - `mirabilis_habitat_analysis.py`  
-  Compares public habitat evidence for `S. mirabilis` and `S. aegyptiacus` to highlight the ecological contrast between inland-riparian and coastal-margin contexts.
+  Compares public habitat evidence for `S. mirabilis` and `S. aegyptiacus` to show the ecological contrast used in the synthesis.
+
+- `mirabilis_integrated_analysis.py`  
+  Combines crest/body-size data, density context, and habitat evidence into one integrated generalization.
 
 - `mirabilis_evidence.csv`  
   Source-backed evidence rows used by the general analysis script.
@@ -41,14 +37,17 @@ This is still a hypothesis, not a final conclusion. But now the hypothesis is an
 - `mirabilis_habitat_evidence.csv`  
   Source-backed habitat evidence rows used by the ecological comparison script.
 
+- `mirabilis_density_context.csv`  
+  Density and compactness context from the `S. aegyptiacus` literature used to avoid overreading a single density proxy.
+
 ## Main finding so far
 
-The strongest current differentiator is ecological:
+The integrated analysis currently points to a simple generalization:
 
-- `S. mirabilis` is coded as strongly inland-riparian.
-- `S. aegyptiacus` is more mixed and coastal-leaning.
-
-That suggests a useful hypothesis: the tall crest in `S. mirabilis` may have been especially relevant in a visually open river corridor, where display and species recognition would travel farther.
+- `S. mirabilis` has a tall crest relative to its estimated body length.
+- Its habitat evidence is strongly inland-riparian.
+- Density work on `S. aegyptiacus` shows why compactness alone should not be overinterpreted.
+- Put together, the clearest signal is display specialization in a riverine setting, not a body-plan revolution.
 
 ## Evidence base
 
@@ -71,12 +70,14 @@ Primary public sources used in the current analysis:
 ```bash
 python mirabilis_analysis.py
 python mirabilis_habitat_analysis.py
+python mirabilis_integrated_analysis.py
 ```
 
 To write a markdown report:
 
 ```bash
 python mirabilis_habitat_analysis.py --output-markdown report.md
+python mirabilis_integrated_analysis.py --output-markdown report.md
 ```
 
 ## Notes
