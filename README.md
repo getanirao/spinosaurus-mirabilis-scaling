@@ -1,112 +1,105 @@
-# Spinosaurus mirabilis scaling
+# Spinosaurus mirabilis — crest hydrodynamics & morphology
 
-This repository contains a small, source-backed analysis prototype for studying `Spinosaurus mirabilis` with a combined lens:
+CFD screening and source-backed morphological analysis of the scimitar-crested
+*Spinosaurus mirabilis*, using the Nobilis 2 artist mesh as a geometry surrogate.
 
-- quantitative morphology
-- density context from the better-documented `S. aegyptiacus` literature
-- qualitative ecological context
+## Repository structure
 
-The goal is not to predict geology. It is to use measurements and contextual evidence together to make a species-level generalization about what makes `S. mirabilis` distinctive.
+```
+.
+├── geometry/                          # 3D geometry pipeline
+│   ├── source/                        #   original Nobilis 2 artist .blend
+│   ├── derived/                       #   STLs, parametric hulls, wraps
+│   └── scripts/                       #   hull generators and build tools
+├── results/
+│   ├── hydrodynamics/                 # Analytical crest-drag model
+│   │   ├── crest_hydrodynamics.py     #   Monte Carlo sensitivity model
+│   │   ├── build_crest_pressure_figure.py  # SVG figure renderer
+│   │   ├── crest_hydrodynamics_inputs.csv
+│   │   ├── crest_hydrodynamics_summary.csv
+│   │   ├── crest_hydrodynamics_report.md
+│   │   └── crest_pressure_comparison.svg
+│   └── simscale/
+│       ├── analyze_run.py             #   Compiles residual/force/moment stats
+│       └── mirabilis_crest_present_U2mps/  # Completed crest-present CFD run
+│           ├── raw/                   #   Exported solver telemetry
+│           ├── figures/               #   Pressure and velocity cutting planes
+│           ├── summary.csv            #   Compiled stability statistics
+│           └── mesh_quality.txt       #   Mesh provenance and quality
+├── data_ingestion.py                  # Bone measurement table ingestion
+├── mirabilis_analysis.py              # Public evidence summary
+├── mirabilis_habitat_analysis.py      # Habitat evidence comparison
+├── mirabilis_integrated_analysis.py   # Combined morphology/habitat synthesis
+├── mirabilis_evidence.csv
+├── mirabilis_habitat_evidence.csv
+├── mirabilis_density_context.csv
+└── README.md
+```
 
-## Working idea
+## Analysis tracks
 
-The current hypothesis is that `S. mirabilis` is best interpreted as:
+### 1. Morphological & evidence analysis (Python)
 
-- a crest-dominant spinosaur
-- with an inland-riparian ecological setting
-- whose novelty is strongest in display morphology and habitat differentiation
-- rather than in any claim that density alone proves a new aquatic mode
+Source-backed scripts that convert public claims about *S. mirabilis* and
+*S. aegyptiacus* into a compact, reproducible quantitative summary.
 
-## What is included
+| Script | What it does |
+|--------|-------------|
+| `mirabilis_analysis.py` | Summarizes public claims (body length, mass, crest height) with source attribution |
+| `mirabilis_habitat_analysis.py` | Compares habitat evidence across species |
+| `mirabilis_integrated_analysis.py` | Combines morphology, density context, and habitat into a synthesis |
+| `data_ingestion.py` | Ingests bone measurement tables for regression-ready grids |
 
-- `data_ingestion.py`  
-  Loads a bone measurement table, identifies specimen IDs, separates independent proxies from dependent variables, and emits telemetry for regression-ready data.
+### 2. CFD hydrodynamics (SimScale + analytical model)
 
-- `mirabilis_analysis.py`  
-  Summarizes public claims about `S. mirabilis` and the UChicago Fossil Lab into a compact quantitative report.
+Two complementary approaches to estimate crest hydrodynamic loading:
 
-- `mirabilis_habitat_analysis.py`  
-  Compares public habitat evidence for `S. mirabilis` and `S. aegyptiacus` to show the ecological contrast used in the synthesis.
+**Analytical model** (`results/hydrodynamics/`): 100,000-draw Monte Carlo
+sensitivity model treating the crest as a thickened sagittal blade. Current
+median prediction: *S. mirabilis* head-first entry crest load = **20.1 N**
+(4.4× the *S. aegyptiacus* fragment baseline).
 
-- `mirabilis_integrated_analysis.py`  
-  Combines crest/body-size data, density context, and habitat evidence into one integrated generalization.
+**SimScale CFD** (`results/simscale/`): Completed crest-present steady RANS
+run (k-omega SST, 1.6M cells, Uy = +2 m/s, 1,000 iterations). Key checkpoint:
+- Final residuals: Ux = 1.6e-5, Uy = 9.3e-7, Uz = 1.6e-5, p = 1.9e-4
+- Total Y-force over final 200 samples: **287.6 ± 0.18 N**
+- Total moment X over final 200 samples: **-25.9 ± 0.46 N·m**
 
-- `mirabilis_evidence.csv`  
-  Source-backed evidence rows used by the general analysis script.
-
-- `mirabilis_habitat_evidence.csv`  
-  Source-backed habitat evidence rows used by the ecological comparison script.
-
-- `mirabilis_density_context.csv`  
-  Density and compactness context from the `S. aegyptiacus` literature used to avoid overreading a single density proxy.
-
-- `crest_hydrodynamics.py`
-  Runs a crest-only head-entry and off-axis hydrodynamic sensitivity analysis for `S. mirabilis` and the `S. aegyptiacus` fragment baseline.
-
-- `crest_hydrodynamics_inputs.csv`
-  Records source-informed dimensions and clearly labeled geometric or hydrodynamic assumptions.
-
-- `build_crest_pressure_figure.py` and `crest_pressure_comparison.svg`
-  Generate and render the source-labeled side-by-side comparative pressure schematic.
-
-## Main finding so far
-
-The integrated analysis currently points to a simple generalization:
-
-- `S. mirabilis` has a tall crest relative to its estimated body length.
-- Its habitat evidence is strongly inland-riparian.
-- Density work on `S. aegyptiacus` shows why compactness alone should not be overinterpreted.
-- Put together, the clearest signal is display specialization in a riverine setting, not a body-plan revolution.
-
-## Crest Hydrodynamics
-
-![Source-labeled crest-only water-entry comparison](crest_pressure_comparison.svg)
-
-The crest model compares the two species side by side:
-
-- `S. aegyptiacus` is the control, anchored to a CT-based 3D skeletal and flesh reconstruction.
-- `S. mirabilis` is the test variable, based on the official digital skull assembly described with the 2026 species paper.
-- The figure maps relative modeled pressure concentration from blue to red and shows crest drag direction during a head-first water-entry scenario.
-
-The current 100,000-draw sensitivity run estimates a median crest-only entry load of `4.5 N` for the incomplete `S. aegyptiacus` UCPC-2 baseline and `20.1 N` for `S. mirabilis` (`4.4x`). This is an analytical projected-area model, not CFD. It supports a testable loading difference, not a claim that crest drag alone proves diving was impossible.
-
-The `S. mirabilis` panel is a source-informed analytical schematic because an open, specimen-resolved full 3D mesh was not verified.
-
-## Evidence base
-
-Primary public sources used in the current analysis:
-
-- [UChicago News on `S. mirabilis`](https://news.uchicago.edu/story/hell-heron-dinosaur-discovered-central-sahara)
-- [PubMed record for the `Science` paper](https://pubmed.ncbi.nlm.nih.gov/41712711/)
-- [UChicago/BSD news coverage](https://biologicalsciences.uchicago.edu/news/new-scimitar-crested-spinosaurus-species-discovered-central-sahara)
-- [eLife `S. aegyptiacus` reanalysis](https://elifesciences.org/articles/80092)
-- [MorphoSource `S. aegyptiacus` 3D data project](https://www.morphosource.org/projects/000460619)
-- [Official `S. mirabilis` digital-reconstruction release](https://www.newswise.com/articles/new-scimitar-crested-spinosaurus-species-discovered-in-the-central-sahara)
-- [PLOS One paleoenvironments paper](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0147031)
+> A matched crest-reduced control run is needed before reporting a crest drag
+> penalty. The current result is a numerical checkpoint, not a comparative
+> biological result.
 
 ## Requirements
 
 - Python 3
-- `pandas`
-- `numpy`
+- `pandas`, `numpy`
 
 ## Run
 
 ```bash
+# Morphology / evidence
 python mirabilis_analysis.py
 python mirabilis_habitat_analysis.py
 python mirabilis_integrated_analysis.py
-python crest_hydrodynamics.py --output-csv crest_hydrodynamics_summary.csv --output-markdown crest_hydrodynamics_report.md
-python build_crest_pressure_figure.py
+
+# Crest hydrodynamics analytical model
+python results/hydrodynamics/crest_hydrodynamics.py \
+  --output-csv results/hydrodynamics/crest_hydrodynamics_summary.csv \
+  --output-markdown results/hydrodynamics/crest_hydrodynamics_report.md
+
+# SVG comparison figure
+python results/hydrodynamics/build_crest_pressure_figure.py
+
+# Compile SimScale telemetry into summary statistics
+python results/simscale/analyze_run.py results/simscale/mirabilis_crest_present_U2mps
 ```
 
-To write a markdown report:
+## Third-party geometry attribution
 
-```bash
-python mirabilis_habitat_analysis.py --output-markdown report.md
-python mirabilis_integrated_analysis.py --output-markdown report.md
-```
+> "Spinosaurus mirabilis" (https://skfb.ly/pKMVN) by Nobilis 2 is licensed
+> under [Creative Commons Attribution 4.0]
+> (http://creativecommons.org/licenses/by/4.0/).
 
-## Notes
-
-This is an early prototype. The current value is in framing a testable hypothesis and organizing public evidence into something reproducible.
+The original `.blend` is preserved at `geometry/source/` as an immutable
+source asset. All derived surfaces document their origin from this mesh and
+are not represented as newly recovered anatomy.

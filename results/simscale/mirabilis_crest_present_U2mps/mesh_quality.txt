@@ -1,0 +1,43 @@
+SimScale mesh checkpoint: mirabilis_wrap_r8_U2_mesh6_screening
+Geometry processing: Fit-to-Surface Wrap, resolution 8
+Completed mesh: approximately 1.6M cells, 618.4k nodes
+Element family: mixed tetrahedra, pyramids, prisms, and hexahedra
+
+Model import: 1.65768115 s
+Maximum model/entity precision: 1e-08 m
+Absolute small-feature tolerance: 0.0007711328556707757 m
+Surface meshing: 19.890277071 s
+Total meshing: 2m45.394313457s
+
+Tetrahedra
+  Non-orthogonality: max 87.1, average 31.1
+  Edge ratio: max 16.3, average 1.8
+  Volume ratio: max 18.1, average 2.0
+  Aspect ratio: max 22.1, average 1.7
+  Skewness: max 1.7, average 0.3
+
+Pyramids
+  Non-orthogonality: max 72.8, average 24.6
+  Edge ratio: max 17.0, average 1.2
+  Volume ratio: max 17.4, average 5.4
+  Aspect ratio: max 3.4, average 1.6
+  Skewness: max 1.5, average 0.5
+
+Prisms
+  Non-orthogonality: max 76.1, average 16.8
+  Edge ratio: max 19.3, average 9.4
+  Volume ratio: max 7.3, average 1.6
+  Aspect ratio: max 45.1, average 10.9
+  Skewness: max 3.4, average 0.1
+
+Hexahedra
+  Non-orthogonality: max 16.9, average 0.2
+  Edge ratio: max 1.0, average 1.0
+  Volume ratio: max 9.8, average 1.7
+  Aspect ratio: max 1.0, average 1.0
+  Skewness: max 0.3, average 0.0
+
+All values above were reported within the acceptable ranges displayed by
+SimScale. The log also printed a minimum edge length of 0.0 for each element
+family; this rounded display value is retained as a diagnostic caveat rather
+than interpreted as a literal zero-length edge.

@@ -1,0 +1,77 @@
+{
+  "source": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\wrap_surface_trial\\nobilis2_complete_head_solidified_voxel_prewrap_v012m.stl",
+  "output": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\wrap_surface_trial\\nobilis2_complete_head_crest_reduced_control_prewrap_v012m.stl",
+  "model_role": "source-matched crest-reduced geometric control",
+  "not_an_anatomical_claim": true,
+  "method": {
+    "crest_y_interval_m": [
+      -2.86,
+      -2.64
+    ],
+    "roof_anchor_z_m": [
+      2.2317,
+      2.3377
+    ],
+    "roof_anchor_slopes_dz_dy": [
+      0.8,
+      0.23
+    ],
+    "edge_blend_m": 0.02,
+    "retained_crest_excess_fraction": 0.03,
+    "reason_for_retained_fraction": "Avoids collapsing vertically aligned source vertices while removing 97% of local height above the replacement roof curve."
+  },
+  "coordinate_change_audit": {
+    "unique_source_vertices": 42596,
+    "modified_unique_vertices": 1054,
+    "unchanged_unique_vertices": 41542,
+    "unchanged_fraction": 0.9752558925720725,
+    "maximum_vertical_reduction_m": 0.3164781441557247,
+    "source_peak_z_m": 2.5896218,
+    "control_peak_z_m": 2.3873086,
+    "global_peak_reduction_m": 0.2023132000000003,
+    "maximum_coordinate_change_outside_crest_mask_m": 0.0
+  },
+  "source_surface": {
+    "triangles": 85188,
+    "unique_vertices": 42596,
+    "boundary_edges": 0,
+    "non_manifold_edges": 0,
+    "degenerate_triangles": 0,
+    "surface_area_m2": 4.704086045182345,
+    "signed_volume_m3": 0.041944000838538165,
+    "bounds_min_m": [
+      -0.17271943,
+      -3.462392,
+      1.3547735
+    ],
+    "bounds_max_m": [
+      0.17273113,
+      -1.7645274,
+      2.5896218
+    ]
+  },
+  "control_surface": {
+    "triangles": 85188,
+    "unique_vertices": 42596,
+    "boundary_edges": 0,
+    "non_manifold_edges": 0,
+    "degenerate_triangles": 0,
+    "surface_area_m2": 4.621931937587718,
+    "signed_volume_m3": 0.04103974204222706,
+    "bounds_min_m": [
+      -0.17271943,
+      -3.462392,
+      1.3547735
+    ],
+    "bounds_max_m": [
+      0.17273113,
+      -1.7645274,
+      2.3873086
+    ]
+  },
+  "use_constraints": [
+    "Run through the same SimScale Fit-to-surface Wrap resolution 8 workflow as the full model.",
+    "Use identical domain, material, boundary conditions, mesh settings, and solver controls.",
+    "Interpret differences as sensitivity to this explicit geometric reduction, not fossil anatomy."
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "method": {
+    "name": "artist-derived variable-width parametric 3D hull",
+    "source_geometry": "Nobilis 2 CC BY 4.0 artist mesh, used only for profile and width-envelope measurements.",
+    "construction": "Sagittal min/max envelope lofted through elliptical cross-sections with source-derived longitudinal half-widths.",
+    "interpretation": "Sensitivity geometry only; not an anatomical reconstruction, skull mesh, or fossil-derived surface.",
+    "excluded_features": "Teeth, internal cavities, detached artist-mesh parts, soft tissue, and unverified transverse crest anatomy."
+  },
+  "parameters": {
+    "profile_samples": 241,
+    "ring_samples": 48,
+    "width_scales": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "nose_closure": {
+      "type": "smooth source-bounded numerical closure shared by all variants",
+      "inboard_length_m": 0.05,
+      "transition_rings": 5,
+      "leading_section_scale": 0.6
+    },
+    "crest_ablation": {
+      "anchor_y_start_m": -2.9523205774743557,
+      "anchor_y_end_m": -2.2499815565430223,
+      "left_slope": 0.6871013582117894,
+      "right_slope": -0.07501139608762462
+    },
+    "head_y_range_m": [
+      -3.4631125926971436,
+      -1.7604725419545175
+    ],
+    "sagittal_segment_count": 778,
+    "width_sampling_radius_m": 0.035,
+    "width_quantile": 0.9,
+    "half_width_range_m": [
+      0.043576001375913616,
+      0.16286583244800568
+    ]
+  },
+  "validation": "Surface-topology validation only. Run OpenFOAM surfaceCheck and a volume-mesh quality check before any solver claim.",
+  "variants": [
+    {
+      "name": "nobilis2_parametric_3d_hull_full_w080",
+      "morph": "full",
+      "width_scale": 0.8,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_full_w080.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.16152152101508774
+    },
+    {
+      "name": "nobilis2_parametric_3d_hull_crest_ablated_w080",
+      "morph": "crest_ablated",
+      "width_scale": 0.8,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_crest_ablated_w080.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.15725804155649475
+    },
+    {
+      "name": "nobilis2_parametric_3d_hull_full_w100",
+      "morph": "full",
+      "width_scale": 1.0,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_full_w100.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.20190085192098153
+    },
+    {
+      "name": "nobilis2_parametric_3d_hull_crest_ablated_w100",
+      "morph": "crest_ablated",
+      "width_scale": 1.0,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_crest_ablated_w100.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.19657153020832765
+    },
+    {
+      "name": "nobilis2_parametric_3d_hull_full_w120",
+      "morph": "full",
+      "width_scale": 1.2,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_full_w120.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.24228007942573668
+    },
+    {
+      "name": "nobilis2_parametric_3d_hull_crest_ablated_w120",
+      "morph": "crest_ablated",
+      "width_scale": 1.2,
+      "path": "C:\\Users\\getan\\Documents\\GitHub\\spinosaurus-mirabilis-scaling\\geometry\\derived\\parametric_3d_hull_sensitivity\\nobilis2_parametric_3d_hull_crest_ablated_w120.stl",
+      "vertices": 11474,
+      "triangles": 22944,
+      "boundary_edges": 0,
+      "non_manifold_edges": 0,
+      "degenerate_triangles": 0,
+      "enclosed_volume_m3": 0.23588436702909787
+    }
+  ]
+}
