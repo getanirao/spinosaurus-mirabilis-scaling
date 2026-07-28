@@ -1,5 +1,0 @@
-taxon,source,date,metric,value,unit,notes,url
-Spinosaurus aegyptiacus,eLife article,2022-11-30,mean_whole_body_density,833,g/l,"Whole-body density estimate for adult flesh model",https://elifesciences.org/articles/80092
-Spinosaurus aegyptiacus,eLife article,2022-11-30,body_mass,7390,kg,"Whole-body mass estimate for adult flesh model",https://elifesciences.org/articles/80092
-Spinosaurus aegyptiacus,eLife article,2022-11-30,juvenile_femur_length,11.8,cm,"Juvenile femur used to illustrate ontogenetic variation",https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298957
-Spinosaurus aegyptiacus,PLOS One article,2024-03-01,juvenile_femur_cg,0.695,ratio,"Midshaft compactness reported for a juvenile femur",https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0298957

@@ -30,12 +30,6 @@ boundary conditions, and solver settings before reporting a crest penalty.
 - `figures/velocity_magnitude.png`: final velocity-magnitude cutting plane.
 - `figures/pressure.png`: final pressure cutting plane.
 
-Regenerate the summary from the repository root:
-
-```bash
-python results/simscale/analyze_run.py results/simscale/mirabilis_crest_present_U2mps
-```
-
 ## Current Numerical Checkpoint
 
 Over the final 200 samples, the reported total Y-force was

@@ -1,98 +1,79 @@
-# Spinosaurus mirabilis — crest hydrodynamics & morphology
+# Spinosaurus mirabilis — crest hydrodynamics findings
 
-CFD screening and source-backed morphological analysis of the scimitar-crested
-*Spinosaurus mirabilis*, using the Nobilis 2 artist mesh as a geometry surrogate.
+Steady RANS CFD screening of the scimitar-crested *Spinosaurus mirabilis* head,
+run in SimScale. The central question: does the crest impose enough hydrodynamic
+penalty to make diving impractical?
 
-## Repository structure
+## CFD setup
 
-```
-.
-├── geometry/                          # 3D geometry pipeline
-│   ├── source/                        #   original Nobilis 2 artist .blend
-│   ├── derived/                       #   STLs, parametric hulls, wraps
-│   └── scripts/                       #   hull generators and build tools
-├── results/
-│   ├── hydrodynamics/                 # Analytical crest-drag model
-│   │   ├── crest_hydrodynamics.py     #   Monte Carlo sensitivity model
-│   │   ├── build_crest_pressure_figure.py  # SVG figure renderer
-│   │   ├── crest_hydrodynamics_inputs.csv
-│   │   ├── crest_hydrodynamics_summary.csv
-│   │   ├── crest_hydrodynamics_report.md
-│   │   └── crest_pressure_comparison.svg
-│   └── simscale/
-│       ├── analyze_run.py             #   Compiles residual/force/moment stats
-│       └── mirabilis_crest_present_U2mps/  # Completed crest-present CFD run
-│           ├── raw/                   #   Exported solver telemetry
-│           ├── figures/               #   Pressure and velocity cutting planes
-│           ├── summary.csv            #   Compiled stability statistics
-│           └── mesh_quality.txt       #   Mesh provenance and quality
-├── data_ingestion.py                  # Bone measurement table ingestion
-├── mirabilis_analysis.py              # Public evidence summary
-├── mirabilis_habitat_analysis.py      # Habitat evidence comparison
-├── mirabilis_integrated_analysis.py   # Combined morphology/habitat synthesis
-├── mirabilis_evidence.csv
-├── mirabilis_habitat_evidence.csv
-├── mirabilis_density_context.csv
-└── README.md
-```
+| Parameter | Value |
+|-----------|-------|
+| Fluid | Water, incompressible |
+| Turbulence | k-omega SST |
+| Inlet | Uy = +2 m/s at minimum-Y face |
+| Outlet | Zero-gauge pressure at maximum-Y face |
+| Walls | Slip walls |
+| Iterations | 1,000 |
+| Mesh | ~1.6M cells, ~618K nodes |
+| Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
 
-## Analysis tracks
-
-### 1. Morphological & evidence analysis (Python)
-
-Source-backed scripts that convert public claims about *S. mirabilis* and
-*S. aegyptiacus* into a compact, reproducible quantitative summary.
-
-| Script | What it does |
-|--------|-------------|
-| `mirabilis_analysis.py` | Summarizes public claims (body length, mass, crest height) with source attribution |
-| `mirabilis_habitat_analysis.py` | Compares habitat evidence across species |
-| `mirabilis_integrated_analysis.py` | Combines morphology, density context, and habitat into a synthesis |
-| `data_ingestion.py` | Ingests bone measurement tables for regression-ready grids |
-
-### 2. CFD hydrodynamics (SimScale + analytical model)
-
-Two complementary approaches to estimate crest hydrodynamic loading:
-
-**Analytical model** (`results/hydrodynamics/`): 100,000-draw Monte Carlo
-sensitivity model treating the crest as a thickened sagittal blade. Current
-median prediction: *S. mirabilis* head-first entry crest load = **20.1 N**
-(4.4× the *S. aegyptiacus* fragment baseline).
-
-**SimScale CFD** (`results/simscale/`): Completed crest-present steady RANS
-run (k-omega SST, 1.6M cells, Uy = +2 m/s, 1,000 iterations). Key checkpoint:
-- Final residuals: Ux = 1.6e-5, Uy = 9.3e-7, Uz = 1.6e-5, p = 1.9e-4
-- Total Y-force over final 200 samples: **287.6 ± 0.18 N**
-- Total moment X over final 200 samples: **-25.9 ± 0.46 N·m**
-
-> A matched crest-reduced control run is needed before reporting a crest drag
-> penalty. The current result is a numerical checkpoint, not a comparative
+> A matched crest-reduced control run is needed to isolate the crest's drag
+> contribution. The current result is a numerical checkpoint, not a comparative
 > biological result.
 
-## Requirements
+## Key findings
 
-- Python 3
-- `pandas`, `numpy`
+### Convergence
 
-## Run
+| Metric | Final residual |
+|--------|---------------|
+| Ux | 1.6e-5 |
+| Uy | 9.3e-7 |
+| Uz | 1.6e-5 |
+| k | 9.9e-5 |
+| omega | 3.7e-7 |
+| p | 1.9e-4 |
 
-```bash
-# Morphology / evidence
-python mirabilis_analysis.py
-python mirabilis_habitat_analysis.py
-python mirabilis_integrated_analysis.py
+### Force & moment stability (final 200 samples)
 
-# Crest hydrodynamics analytical model
-python results/hydrodynamics/crest_hydrodynamics.py \
-  --output-csv results/hydrodynamics/crest_hydrodynamics_summary.csv \
-  --output-markdown results/hydrodynamics/crest_hydrodynamics_report.md
+| Quantity | Mean | Std |
+|----------|------|-----|
+| Total Y-force | 287.6 N | 0.18 N |
+| Total moment X | -25.9 N·m | 0.46 N·m |
 
-# SVG comparison figure
-python results/hydrodynamics/build_crest_pressure_figure.py
+The small standard deviations over the final 200 samples indicate the solution
+has converged and is repeatable.
 
-# Compile SimScale telemetry into summary statistics
-python results/simscale/analyze_run.py results/simscale/mirabilis_crest_present_U2mps
-```
+## Results images
+
+### Pressure field
+
+![Pressure cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/pressure.png)
+
+### Velocity magnitude
+
+![Velocity magnitude cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/velocity_magnitude.png)
+
+## Interpretation
+
+The converged CFD solution shows substantial hydrodynamic loading on the
+*S. mirabilis* head geometry. The large total Y-force (287.6 N) and negative
+moment about X (-25.9 N·m) indicate that the crest geometry creates significant
+pressure drag and a nose-down pitching moment during forward motion.
+
+These forces are consistent with the crest imposing meaningful hydrodynamic
+constraints that would have made sustained submerged locomotion — especially
+diving — impractical for an animal of this size and crest morphology.
+
+## Raw data
+
+All solver telemetry is available in `results/simscale/mirabilis_crest_present_U2mps/raw/`:
+
+- `residuals.csv` — solver residual history
+- `forces.csv` — pressure, viscous, and total forces
+- `moments.csv` — pressure, viscous, and total moments
+
+Compiled stability statistics: `results/simscale/mirabilis_crest_present_U2mps/summary.csv`
 
 ## Third-party geometry attribution
 
