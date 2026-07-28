@@ -40,6 +40,15 @@ The current hypothesis is that `S. mirabilis` is best interpreted as:
 - `mirabilis_density_context.csv`  
   Density and compactness context from the `S. aegyptiacus` literature used to avoid overreading a single density proxy.
 
+- `crest_hydrodynamics.py`
+  Runs a crest-only head-entry and off-axis hydrodynamic sensitivity analysis for `S. mirabilis` and the `S. aegyptiacus` fragment baseline.
+
+- `crest_hydrodynamics_inputs.csv`
+  Records source-informed dimensions and clearly labeled geometric or hydrodynamic assumptions.
+
+- `build_crest_pressure_figure.py` and `crest_pressure_comparison.svg`
+  Generate and render the source-labeled side-by-side comparative pressure schematic.
+
 ## Main finding so far
 
 The integrated analysis currently points to a simple generalization:
@@ -49,6 +58,20 @@ The integrated analysis currently points to a simple generalization:
 - Density work on `S. aegyptiacus` shows why compactness alone should not be overinterpreted.
 - Put together, the clearest signal is display specialization in a riverine setting, not a body-plan revolution.
 
+## Crest Hydrodynamics
+
+![Source-labeled crest-only water-entry comparison](crest_pressure_comparison.svg)
+
+The crest model compares the two species side by side:
+
+- `S. aegyptiacus` is the control, anchored to a CT-based 3D skeletal and flesh reconstruction.
+- `S. mirabilis` is the test variable, based on the official digital skull assembly described with the 2026 species paper.
+- The figure maps relative modeled pressure concentration from blue to red and shows crest drag direction during a head-first water-entry scenario.
+
+The current 100,000-draw sensitivity run estimates a median crest-only entry load of `4.5 N` for the incomplete `S. aegyptiacus` UCPC-2 baseline and `20.1 N` for `S. mirabilis` (`4.4x`). This is an analytical projected-area model, not CFD. It supports a testable loading difference, not a claim that crest drag alone proves diving was impossible.
+
+The `S. mirabilis` panel is a source-informed analytical schematic because an open, specimen-resolved full 3D mesh was not verified.
+
 ## Evidence base
 
 Primary public sources used in the current analysis:
@@ -57,6 +80,8 @@ Primary public sources used in the current analysis:
 - [PubMed record for the `Science` paper](https://pubmed.ncbi.nlm.nih.gov/41712711/)
 - [UChicago/BSD news coverage](https://biologicalsciences.uchicago.edu/news/new-scimitar-crested-spinosaurus-species-discovered-central-sahara)
 - [eLife `S. aegyptiacus` reanalysis](https://elifesciences.org/articles/80092)
+- [MorphoSource `S. aegyptiacus` 3D data project](https://www.morphosource.org/projects/000460619)
+- [Official `S. mirabilis` digital-reconstruction release](https://www.newswise.com/articles/new-scimitar-crested-spinosaurus-species-discovered-in-the-central-sahara)
 - [PLOS One paleoenvironments paper](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0147031)
 
 ## Requirements
@@ -71,6 +96,8 @@ Primary public sources used in the current analysis:
 python mirabilis_analysis.py
 python mirabilis_habitat_analysis.py
 python mirabilis_integrated_analysis.py
+python crest_hydrodynamics.py --output-csv crest_hydrodynamics_summary.csv --output-markdown crest_hydrodynamics_report.md
+python build_crest_pressure_figure.py
 ```
 
 To write a markdown report:

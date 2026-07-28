@@ -1,0 +1,25 @@
+comparison,metric,unit,p05,median,p95
+Spinosaurus mirabilis,aligned_drag_n,N,0.09634870,1.45598462,8.08367466
+Spinosaurus mirabilis,aligned_base_moment_nm,N m,0.00566395,0.14464699,1.40234516
+Spinosaurus mirabilis,head_first_entry_drag_n,N,2.18092841,20.06705818,96.60458851
+Spinosaurus mirabilis,head_first_entry_base_moment_nm,N m,0.10638134,2.07618652,16.94021327
+Spinosaurus mirabilis,off_axis_drag_n,N,0.53260635,8.13434946,45.85677523
+Spinosaurus mirabilis,off_axis_base_moment_nm,N m,0.03070945,0.80779347,7.95545261
+Spinosaurus mirabilis,off_axis_to_aligned_drag_ratio,ratio,2.22996136,5.71933787,12.55852870
+Spinosaurus mirabilis,aligned_drag_to_tail_thrust_fraction,fraction,0.00057950,0.00272442,0.01017588
+Spinosaurus aegyptiacus,aligned_drag_n,N,0.02096446,0.32663207,1.86405220
+Spinosaurus aegyptiacus,aligned_base_moment_nm,N m,0.00031770,0.00939667,0.11400617
+Spinosaurus aegyptiacus,head_first_entry_drag_n,N,0.48412384,4.52588600,22.60668031
+Spinosaurus aegyptiacus,head_first_entry_base_moment_nm,N m,0.00613566,0.13576287,1.43171463
+Spinosaurus aegyptiacus,off_axis_drag_n,N,0.06383703,1.01476667,6.24469272
+Spinosaurus aegyptiacus,off_axis_base_moment_nm,N m,0.00096655,0.02924447,0.37779507
+Spinosaurus aegyptiacus,off_axis_to_aligned_drag_ratio,ratio,1.34923417,3.28951197,6.22257751
+Spinosaurus aegyptiacus,aligned_drag_to_tail_thrust_fraction,fraction,0.00012522,0.00061219,0.00235773
+S. mirabilis / S. aegyptiacus,aligned_drag_n_ratio,ratio,2.15581618,4.42296961,9.58165908
+S. mirabilis / S. aegyptiacus,aligned_base_moment_nm_ratio,ratio,4.95015872,14.14336167,55.71135684
+S. mirabilis / S. aegyptiacus,head_first_entry_drag_n_ratio,ratio,2.09986328,4.36815832,9.51633159
+S. mirabilis / S. aegyptiacus,head_first_entry_base_moment_nm_ratio,ratio,4.83643551,13.95947925,55.24609572
+S. mirabilis / S. aegyptiacus,off_axis_drag_n_ratio,ratio,4.55041988,7.67585808,15.29492600
+S. mirabilis / S. aegyptiacus,off_axis_base_moment_nm_ratio,ratio,9.76521862,24.77266454,93.38061739
+S. mirabilis / S. aegyptiacus,off_axis_to_aligned_drag_ratio_ratio,ratio,1.10184739,1.73377846,3.05807592
+S. mirabilis / S. aegyptiacus,aligned_drag_to_tail_thrust_fraction_ratio,ratio,2.15581618,4.42296961,9.58165908
