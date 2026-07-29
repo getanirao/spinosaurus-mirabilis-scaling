@@ -47,7 +47,7 @@ has converged and is repeatable.
 
 ### Flow animation
 
-![Spinosaurus crest flow animation](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow_animation.mp4)
+<video src="results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow_animation.mp4" controls width="800"></video>
 
 ## Interpretation
 
