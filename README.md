@@ -45,18 +45,6 @@ has converged and is repeatable.
 
 ## Results images
 
-### Pressure field
-
-![Pressure cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/pressure.png)
-
-The crest region shows no high-pressure buildup (zero red). Pressure values
-remain low/blue throughout, indicating the crest does not accumulate
-significant pressure drag during flow.
-
-### Velocity magnitude
-
-![Velocity magnitude cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/velocity_magnitude.png)
-
 ### Flow animation
 
 ![Spinosaurus crest flow animation](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow_animation.mp4)
