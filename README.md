@@ -47,9 +47,7 @@ has converged and is repeatable.
 
 ### Flow animation
 
-[Download / view the crest flow animation](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow_animation.mp4)
-
-> GitHub doesn't embed MP4 inline in READMEs. Clone the repo or open the file directly to play it. To embed inline, drag-and-drop the MP4 onto the README editor on the GitHub website.
+![Crest flow particle trace](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow.gif)
 
 ## Interpretation
 
