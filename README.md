@@ -43,11 +43,4 @@ All solver telemetry is in `results/simscale/mirabilis_crest_present_U2mps/raw/`
 - **Slip walls on the body surface** mean this run captures pressure/form effects only — it says nothing about skin-friction drag, which matters for a crest-drag question.
 - A crest-reduced control geometry already exists (`geometry/derived/wrap_surface_trial/nobilis2_complete_head_crest_reduced_control_prewrap_v012m.stl`) but has not yet been simulated. Until that run is complete, the crest's specific drag contribution cannot be isolated from the rest of the head geometry.
 
-## Third-party geometry attribution
-
-> "Spinosaurus mirabilis" (https://skfb.ly/pKMVN) by Nobilis 2 is licensed
-> under [Creative Commons Attribution 4.0]
-> (http://creativecommons.org/licenses/by/4.0/).
-
-The original `.blend` is preserved at `geometry/source/` as an immutable
-source asset.
+Geometry source: "Spinosaurus mirabilis" (https://skfb.ly/pKMVN) by Nobilis 2, CC BY 4.0.
