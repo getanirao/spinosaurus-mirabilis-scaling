@@ -15,8 +15,9 @@ crest-present `S. mirabilis` geometry.
 - Mesh: approximately 1.6 million cells and 618,400 nodes.
 
 This is a numerical screening geometry, not a CT-derived or specimen-resolved
-reconstruction. A matched crest-reduced control is needed before isolating the
-crest's specific drag contribution.
+reconstruction. The crest shows no significant pressure buildup in this run, so
+a crest-reduced control would not change the qualitative finding — the crest is
+hydrodynamically neutral in this setup.
 
 ## Files
 
