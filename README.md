@@ -33,7 +33,7 @@ All solver telemetry is in `results/simscale/mirabilis_crest_present_U2mps/raw/`
 
 ### Flow animation
 
-![Steady RANS particle trace](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow.gif)
+![Steady RANS particle trace](https://raw.githubusercontent.com/getanirao/spinosaurus-mirabilis-scaling/main/results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow.gif)
 
 Initial steady RANS particle trace, ±7000 Pa. The alternating pressure lobes
 prompted a transient follow-up to check for vortex shedding — steady solvers
