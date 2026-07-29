@@ -29,6 +29,7 @@ boundary conditions, and solver settings before reporting a crest penalty.
   the completed SimScale meshing log.
 - `figures/velocity_magnitude.png`: final velocity-magnitude cutting plane.
 - `figures/pressure.png`: final pressure cutting plane.
+- `figures/spinosaurus_crest_flow_animation.mp4`: particle-trace flow animation.
 
 ## Current Numerical Checkpoint
 

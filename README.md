@@ -1,8 +1,7 @@
 # Spinosaurus mirabilis — crest hydrodynamics findings
 
 Steady RANS CFD screening of the scimitar-crested *Spinosaurus mirabilis* head,
-run in SimScale. The central question: does the crest impose enough hydrodynamic
-penalty to make diving impractical?
+run in SimScale.
 
 ## CFD setup
 
@@ -50,20 +49,26 @@ has converged and is repeatable.
 
 ![Pressure cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/pressure.png)
 
+The crest region shows no high-pressure buildup (zero red). Pressure values
+remain low/blue throughout, indicating the crest does not accumulate
+significant pressure drag during flow.
+
 ### Velocity magnitude
 
 ![Velocity magnitude cutting plane](results/simscale/mirabilis_crest_present_U2mps/figures/velocity_magnitude.png)
 
+### Flow animation
+
+![Spinosaurus crest flow animation](results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow_animation.mp4)
+
 ## Interpretation
 
-The converged CFD solution shows substantial hydrodynamic loading on the
-*S. mirabilis* head geometry. The large total Y-force (287.6 N) and negative
-moment about X (-25.9 N·m) indicate that the crest geometry creates significant
-pressure drag and a nose-down pitching moment during forward motion.
-
-These forces are consistent with the crest imposing meaningful hydrodynamic
-constraints that would have made sustained submerged locomotion — especially
-diving — impractical for an animal of this size and crest morphology.
+The total Y-force (287.6 N) and moment about X (-25.9 N·m) confirm the head
+geometry produces substantial drag, but the pressure field shows the crest
+itself is relatively pressureless — the drag contribution comes predominantly
+from other parts of the head (snout, jaw, overall frontal area), not from crest
+pressure buildup. A crest-reduced control run is needed to quantify the crest's
+specific contribution.
 
 ## Raw data
 
