@@ -15,9 +15,11 @@ crest-present `S. mirabilis` geometry.
 - Mesh: approximately 1.6 million cells and 618,400 nodes.
 
 This is a numerical screening geometry, not a CT-derived or specimen-resolved
-reconstruction. The crest shows no significant pressure buildup in this run, so
-a crest-reduced control would not change the qualitative finding — the crest is
-hydrodynamically neutral in this setup.
+reconstruction. The steady run's pressure field does not show a large static
+buildup at the crest, but full-range data shows a wide, asymmetric spread
+(−29.7 to +13.4 kPa) and a particle-trace pattern consistent with possible
+vortex shedding. A transient run is required before drawing a conclusion
+either way.
 
 ## Files
 
@@ -34,5 +36,6 @@ Final residuals at iteration 1000: Ux = 1.46e-4, Uy = 6.17e-6, Uz = 2.27e-4,
 k = 4.18e-5, omega = 1.87e-6, p = 3.06e-3. The pressure residual is about 16×
 higher than the velocity residuals and plateaued (not still dropping), so the
 pressure field is less converged than the velocity field. The particle-trace
-animation shows the crest region remaining at low pressure throughout the flow —
-a qualitative observation from one run, not a validated result.
+animation shows the crest at low pressure at the ±7000 Pa scale used for visual
+clarity (full-range: −29.7 to +13.4 kPa) — a qualitative observation from one
+run, not a validated result.
