@@ -20,15 +20,15 @@ run in SimScale, with a transient run attempted (diverged, being retried with re
 
 ## Raw data
 
-All solver telemetry is in `results/simscale/mirabilis_crest_present_U2mps/raw/`:
+All solver telemetry is in `results/simscale/mirabilis_crest_present_U2mps/`:
 
 | File | Contents |
 |------|----------|
-| `residuals.csv` | Global residual history (Ux, Uy, Uz, k, omega, p) across 1,000 iterations |
-| `Domain.csv` | Domain-averaged Ux, Uy, Uz, p convergence |
-| `Inlets.csv` | Inlet boundary Ux, Uy, Uz, p convergence |
-| `Outlets.csv` | Outlet boundary Ux, Uy, Uz, p convergence |
-| `Walls.csv` | Wall boundary Ux, Uy, Uz, p convergence |
+| `raw/residuals.csv` | Global residual history (Ux, Uy, Uz, k, omega, p) across 1,000 iterations |
+| `raw/Domain.csv` | Domain-averaged Ux, Uy, Uz, p convergence |
+| `raw/Inlets.csv` | Inlet boundary Ux, Uy, Uz, p convergence |
+| `raw/Outlets.csv` | Outlet boundary Ux, Uy, Uz, p convergence |
+| `raw/Walls.csv` | Wall boundary Ux, Uy, Uz, p convergence |
 
 ## Methodology
 
