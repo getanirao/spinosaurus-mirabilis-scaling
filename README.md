@@ -14,7 +14,7 @@ run in SimScale, with a transient run attempted (diverged, being retried with re
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Walls | Slip walls (no viscous boundary layer — pressure/form drag only) |
 | Iterations | 1,000 (steady); transient run attempted — diverged, being retried |
-| Cases | One Reynolds number (Re ≈ 2.8×10⁵ based on head length), single valid steady run |
+| Cases | One Reynolds number, single valid steady run. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local shedding behavior) |
 | Mesh | ~1.6M cells, ~618K nodes, no grid-independence check |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
 
