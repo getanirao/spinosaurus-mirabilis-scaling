@@ -1,8 +1,8 @@
 # Spinosaurus mirabilis — crest hydrodynamics findings
 
 Steady RANS CFD screening of the scimitar-crested *Spinosaurus mirabilis* head,
-corrected to 2 m/s inlet velocity, run in SimScale. A transient run is in
-progress. This is a hobbyist screening study
+corrected to 2 m/s inlet velocity, run in SimScale. A transient follow-up was
+attempted but not completed (see below). This is a hobbyist screening study
 — not a validated engineering analysis.
 
 ## CFD setup
@@ -14,7 +14,7 @@ progress. This is a hobbyist screening study
 | Inlet | Uy = +2 m/s at minimum-Y face |
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Walls | Slip walls (no viscous boundary layer — pressure/form drag only) |
-| Iterations | 1,000 (steady, corrected run); transient in progress |
+| Iterations | 1,000 (steady, corrected run); transient attempted, not completed |
 | Cases | One Reynolds number, single valid steady run. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local shedding behavior) |
 | Mesh | ~1.187M cells, no grid-independence check |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
@@ -46,7 +46,8 @@ steady solvers cannot resolve genuinely periodic flow.
 - The animation uses a ±7000 Pa scale for visual clarity (2 m/s simulation). The absence of visible red/orange on the crest at this scale does not rule out unsteady loading there. This is a qualitative observation from one run, not a validated result.
 - Final residuals at iteration 1000: Ux = 3.02e-4, Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, **p = 5.85e-3**. Convergence did not improve at the corrected, gentler flow — every residual field is roughly 2× higher than at the old 5 m/s run, counter to expectation.
 - **Slip walls on the body surface** mean this run captures pressure/form effects only — it says nothing about skin-friction drag, which matters for a crest-drag question.
-- The corrected steady pressure field (2 m/s inlet) does not show a large static buildup at the crest, but full-range data shows a wide, asymmetric spread and a particle-trace pattern consistent with possible vortex shedding. A transient run is required before drawing a conclusion either way.
+- **Geometry limitation**: the real S. mirabilis crest is asymmetric along the midline (Sereno et al. 2026), but this study used a symmetrized artist mesh (Nobilis 2). Any hydrodynamic inference is limited to the idealized shape; the real crest may behave differently.
+- The corrected steady pressure field (2 m/s inlet) does not show a large static buildup at the crest, but full-range data shows a wide, asymmetric spread and a particle-trace pattern consistent with possible vortex shedding. A transient run was attempted to resolve this but hit a convergence limitation (see below) — the question remains open.
 
 ## Transient vortex-shedding investigation
 
