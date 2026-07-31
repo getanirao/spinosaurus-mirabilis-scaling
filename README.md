@@ -48,6 +48,12 @@ steady solvers cannot resolve genuinely periodic flow.
 - **Slip walls on the body surface** mean this run captures pressure/form effects only — it says nothing about skin-friction drag, which matters for a crest-drag question.
 - The corrected steady pressure field (2 m/s inlet) does not show a large static buildup at the crest, but full-range data shows a wide, asymmetric spread and a particle-trace pattern consistent with possible vortex shedding. A transient run is required before drawing a conclusion either way.
 
+## Transient vortex-shedding investigation
+
+A transient follow-up was attempted but not completed: the flow field shows signals consistent with shedding (wide asymmetric pressure range, particle-trace pattern, Strouhal estimate ~8–13 Hz), but confirming this requires resolving a persistent slow-convergence issue in the mesh near the head/neck transition, which is beyond what local mesh refinement (currently unavailable) can fix.
+
+**Future work**: refine mesh at y≈−1.77, or attempt at coarser overall resolution to trade accuracy for tractable runtime.
+
 ## Attribution
 
 CFD geometry derived from "Spinosaurus mirabilis" (https://skfb.ly/pKMVN) by Nobilis 2, licensed under [Creative Commons Attribution 4.0](http://creativecommons.org/licenses/by/4.0/).
