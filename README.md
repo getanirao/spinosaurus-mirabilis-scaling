@@ -1,7 +1,8 @@
 # Spinosaurus mirabilis — crest hydrodynamics findings
 
 Steady RANS CFD screening of the scimitar-crested *Spinosaurus mirabilis* head,
-run in SimScale, with a transient run attempted (diverged, being retried with reduced Δt and Courant cap). This is a hobbyist screening study
+corrected to 2 m/s inlet velocity, run in SimScale. A transient run is in
+progress. This is a hobbyist screening study
 — not a validated engineering analysis.
 
 ## CFD setup
@@ -13,9 +14,9 @@ run in SimScale, with a transient run attempted (diverged, being retried with re
 | Inlet | Uy = +2 m/s at minimum-Y face |
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Walls | Slip walls (no viscous boundary layer — pressure/form drag only) |
-| Iterations | 1,000 (steady); transient run attempted — diverged, being retried |
+| Iterations | 1,000 (steady, corrected run); transient in progress |
 | Cases | One Reynolds number, single valid steady run. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local shedding behavior) |
-| Mesh | ~1.6M cells, ~618K nodes, no grid-independence check |
+| Mesh | ~1.187M cells, no grid-independence check |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
 
 ## Raw data
@@ -42,10 +43,10 @@ steady solvers cannot resolve genuinely periodic flow.
 
 ## Key observations
 
-- The animation uses a ±7000 Pa scale for visual clarity. Full-range data shows a wide, asymmetric spread (−29.7 to +13.4 kPa), so the absence of visible red/orange on the crest at this scale does not rule out unsteady loading there. This is a qualitative observation from one run, not a validated result.
-- Final residuals at iteration 1000: Ux = 1.46e-4, Uy = 6.17e-6, Uz = 2.27e-4, k = 4.18e-5, omega = 1.87e-6, **p = 3.06e-3**. The pressure residual is about 16× higher than velocity residuals and is plateaued (not still dropping), so the pressure field is less converged than the velocity field.
+- The animation uses a ±7000 Pa scale for visual clarity (2 m/s simulation). The absence of visible red/orange on the crest at this scale does not rule out unsteady loading there. This is a qualitative observation from one run, not a validated result.
+- Final residuals at iteration 1000: Ux = 3.02e-4, Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, **p = 5.85e-3**. Convergence did not improve at the corrected, gentler flow — every residual field is roughly 2× higher than at the old 5 m/s run, counter to expectation.
 - **Slip walls on the body surface** mean this run captures pressure/form effects only — it says nothing about skin-friction drag, which matters for a crest-drag question.
-- The steady pressure field does not show a large static buildup at the crest, but full-range data shows a wide, asymmetric spread (−29.7 to +13.4 kPa) and a particle-trace pattern consistent with possible vortex shedding. A transient run is required before drawing a conclusion either way.
+- The corrected steady pressure field (2 m/s inlet) does not show a large static buildup at the crest, but full-range data shows a wide, asymmetric spread and a particle-trace pattern consistent with possible vortex shedding. A transient run is required before drawing a conclusion either way.
 
 ## Attribution
 
