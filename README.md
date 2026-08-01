@@ -14,10 +14,10 @@ study — not a validated engineering analysis.
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Reference dynamic pressure | q = 0.5 rho U^2 = 1,995 Pa at 2 m/s |
 | Outer side boundaries | No explicit BCs; the model contains only two assigned boundary conditions (Velocity inlet 1, Pressure outlet 2). All unassigned faces, including the minimum/maximum X and Z outer faces, inherit SimScale's implicit default (no-slip wall). The intended "slip" far-field treatment is **not** in effect — this is a known limitation. |
-| Body surface | No explicit wall/slip BC assigned to the body; unassigned body faces inherit SimScale's implicit no-slip wall default with wall functions. There is no separately imported `face 77`. |
-| Force monitoring | "Forces and moments 1" monitor exists but has **zero assigned faces** ("No Faces assigned"). No pressure/viscous force integral was ever computed. |
+| Body surface | No explicit wall/slip BC assigned to the body; unassigned body faces inherit SimScale's implicit no-slip wall default with wall functions. The head surface appears in the topology as `face 77@Flow region` and is the single face assigned to the "Forces and moments 1" monitor. |
+| Force monitoring | "Forces and moments 1" monitor is assigned to **one face** (`face 77@Flow region`, the head surface). Run 3 (Jul 31, 2026) computed the force integral on the head. Earlier audit reads of "0 faces" were async-render artifacts. |
 | Iterations | 1,000 (steady, corrected run) |
-| Cases | One Reynolds number, single valid steady run. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local behavior) |
+| Cases | One Reynolds number, steady runs only (Run 1: baseline; Run 2: box-wide force integral; Run 3: head-surface force integral on face 77). Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local behavior) |
 | Mesh | 1,187,479 cells / 384,169 nodes (Mesh 9, attached to the Incompressible sim). 803,422 tetrahedra, 236,231 prisms, 86,551 hexahedra, 61,275 pyramids; 645,141 quad + 2,010,052 triangle faces. No grid-independence check. |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
 
@@ -32,6 +32,8 @@ All solver telemetry is in `results/simscale/mirabilis_crest_present_U2mps/`:
 | `raw/Inlets.csv` | Normalized inlet convergence-monitor values |
 | `raw/Outlets.csv` | Normalized outlet convergence-monitor values |
 | `raw/Walls.csv` | Normalized wall convergence-monitor values |
+| `raw/forces_run3_face77.csv` | Head-surface force integral from Run 3 (face 77 only) |
+| `raw/forces_run2_boxwide.csv` | Box-wide force integral from Run 2 (7 faces; not head drag) |
 
 ## Methodology
 
@@ -64,7 +66,7 @@ solution, not a transient water-entry animation.
 - The pressure-colored particle trace shows localized acceleration and wake structure around the idealized head. It does not by itself measure crest drag or establish a diving penalty. Notably, the pressure field shows no strong pressure signature concentrated on the crest — which is consistent with the crest being edge-on to the flow (low axial projected area) *or* with the crest being under-resolved by the mesh. The two cannot be separated from this run alone.
 - There is not yet a matched crest-ablated or *S. aegyptiacus* control run. Without a control, force decomposition, transient test, and grid-convergence study, this run cannot isolate the crest's hydrodynamic effect.
 - **Geometry limitation**: the real S. mirabilis crest is asymmetric along the midline (Sereno et al. 2026), but this study used a symmetrized artist mesh (Nobilis 2). Geometry is derived from a publicly available artist reconstruction, not from fossil scan data or holotype measurements — this is an exploratory hydrodynamic study of an idealized shape, not a test of the actual specimen's morphology.
-- **Force monitoring was never wired up.** The "Forces and moments 1" result control has zero assigned faces, so no drag/lift force value was produced and no force CSV exists. Any earlier numeric drag figure was never computed and must not be cited.
+- **Force monitoring is now wired.** The "Forces and moments 1" result control has one assigned face (`face 77@Flow region`). Run 3 (Jul 31, 2026, steady, 1,000 iters) computed the force integral on the head surface: normal force (9.73, 251.49, 147.46) N and tangential force (0.076, 19.51, 1.32) N at 2 m/s, i.e. streamwise (drag) ≈ 271 N and vertical ≈ 149 N. This is a real force integral but is **not** a validated drag coefficient: pressure is not tightly converged (p = 5.85e-3), there is no grid-independence or control run, and the geometry is a symmetrized artist mesh. Treat the magnitude as approximate and screening-only. See `raw/forces_run3_face77.csv`. (Run 2's box-wide 7-face integral, in `raw/forces_run2_boxwide.csv`, is dominated by inlet/outlet momentum flux and is not a head-drag value.)
 - No explicit wall or slip boundary conditions exist in the model (only inlet and outlet are assigned). SimScale's implicit default treats every unassigned face — the body surface *and* the outer X/Z domain faces — as no-slip walls. A proper far-field treatment (slip or symmetry on outer faces) and an explicit body wall are required before force results can be trusted.
 
 ## Attribution

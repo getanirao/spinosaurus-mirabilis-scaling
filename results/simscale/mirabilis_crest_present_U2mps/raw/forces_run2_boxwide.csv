@@ -1,0 +1,5 @@
+run,monitor,assigned_faces,component,force_x_N,force_y_N,force_z_N,note
+Run 2,"Forces and moments 1",7 (6 box faces + face 77),normalForce,-1.51094663025,-883.7804012719999,-16.4363905546,box-wide integral; dominated by inlet/outlet momentum flux
+Run 2,"Forces and moments 1",7 (6 box faces + face 77),tangentialForce,0.119201367424,707.917522548,2.75488964539,box-wide integral
+Run 2,"Forces and moments 1",7 (6 box faces + face 77),normalMoment,1955.1202109,-4.72877357301,-1.68979975082,box-wide integral
+Run 2,"Forces and moments 1",7 (6 box faces + face 77),tangentialMoment,-1416.33115014,0.547816947762,-1.99436700923,box-wide integral

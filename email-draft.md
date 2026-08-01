@@ -13,13 +13,15 @@ I'm a high school student doing independent CFD work, and your February 2026 Sci
 
 I put together a small, open-source steady RANS screening study of the S. mirabilis head at 2 m/s in water (k-omega SST, ~1.2M cells), using a publicly available artist reconstruction as an idealized stand-in for the holotype geometry. My specific question: does an edge-on sagittal crest like this act primarily as a lateral loading surface under yaw, rather than as an axial drag source at zero yaw?
 
-I want to be upfront about the current state — I'm at the stage where I'm more aware of my errors than my results:
+The preliminary integrated result from the latest run: at zero yaw and 2 m/s, the solver reports ~271 N streamwise drag and ~149 N vertical force on the head surface, with lateral force under 10 N. That's consistent with the crest being nearly edge-on to the flow (front/back pressure largely cancels; little axial drag added by the blade), while the non-negligible vertical component hints at where loading does concentrate.
 
-- My force-and-moment monitor ended up with zero assigned faces, so I have no integrated drag/lift number at all.
-- The pressure residual never converged below ~5.9e-3 over 1,000 iterations.
+I want to be upfront about how much this number is worth — I'm still at the stage where I'm more aware of my errors than my results:
+
+- The pressure residual only reached ~5.9e-3 over 1,000 iterations, so the force integral is approximate, not tightly converged.
+- The force monitor was only wired correctly on the latest run (earlier runs had it misconfigured).
 - I have no control run (crest-ablated, or a comparison against an S. aegyptiacus head), and no grid-independence check.
 
-I deliberately documented all of these limitations in the repo rather than hiding them — the honest read right now is that the study shows a plausible mechanism worth testing (crest edge-on → front/back pressure cancellation, with lateral/yaw loading only appearing under sideslip), not a measured result.
+I deliberately documented all of these limitations in the repo rather than hiding them — treat the 271 N figure as a preliminary screening estimate that supports the mechanism worth testing (crest edge-on → front/back pressure cancellation, with lateral/yaw loading only appearing under sideslip), not as a measured result.
 
 The repo is here: https://github.com/getanirao/spinosaurus-mirabilis-scaling
 
