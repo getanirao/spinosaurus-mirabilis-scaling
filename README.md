@@ -13,13 +13,12 @@ study — not a validated engineering analysis.
 | Inlet | Uy = +2 m/s at minimum-Y face |
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Reference dynamic pressure | q = 0.5 rho U^2 = 1,995 Pa at 2 m/s |
-| Outer side boundaries | Slip on the minimum/maximum X and Z faces |
-| Body surface | Separate imported wall face (`face 77`); force-and-moment monitor assigned to this face |
-| Body surface BC | Default no-slip wall with wall functions on `face 77` (implicit; no explicit BC assignment) |
-| Force monitoring | Pressure and viscous forces integrated over `face 77` |
+| Outer side boundaries | No explicit BCs; the model contains only two assigned boundary conditions (Velocity inlet 1, Pressure outlet 2). All unassigned faces, including the minimum/maximum X and Z outer faces, inherit SimScale's implicit default (no-slip wall). The intended "slip" far-field treatment is **not** in effect — this is a known limitation. |
+| Body surface | No explicit wall/slip BC assigned to the body; unassigned body faces inherit SimScale's implicit no-slip wall default with wall functions. There is no separately imported `face 77`. |
+| Force monitoring | "Forces and moments 1" monitor exists but has **zero assigned faces** ("No Faces assigned"). No pressure/viscous force integral was ever computed. |
 | Iterations | 1,000 (steady, corrected run) |
 | Cases | One Reynolds number, single valid steady run. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local behavior) |
-| Mesh | 1.6M cells, 618.4k nodes; no grid-independence check |
+| Mesh | 1,187,479 cells / 384,169 nodes (Mesh 9, attached to the Incompressible sim). 803,422 tetrahedra, 236,231 prisms, 86,551 hexahedra, 61,275 pyramids; 645,141 quad + 2,010,052 triangle faces. No grid-independence check. |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8 |
 
 ## Raw data
@@ -61,11 +60,12 @@ solution, not a transient water-entry animation.
   produce modest axial drag while generating a much stronger lateral force or
   yawing moment under sideslip; this remains untested until matched yaw sweeps
   and crest-ablated controls are run.
-- Final residuals at iteration 1000: Ux = 3.02e-4, Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, and **p = 5.85e-3**. The residuals decay, but the pressure solution is not tightly converged.
-- The pressure-colored particle trace shows localized acceleration and wake structure around the idealized head. It does not by itself measure crest drag or establish a diving penalty.
+- Final residuals at iteration 1000: Ux = 3.02e-4, Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, and **p = 5.85e-3**. The residuals decay, but the pressure solution is not tightly converged (tolerance was 1e-6).
+- The pressure-colored particle trace shows localized acceleration and wake structure around the idealized head. It does not by itself measure crest drag or establish a diving penalty. Notably, the pressure field shows no strong pressure signature concentrated on the crest — which is consistent with the crest being edge-on to the flow (low axial projected area) *or* with the crest being under-resolved by the mesh. The two cannot be separated from this run alone.
 - There is not yet a matched crest-ablated or *S. aegyptiacus* control run. Without a control, force decomposition, transient test, and grid-convergence study, this run cannot isolate the crest's hydrodynamic effect.
 - **Geometry limitation**: the real S. mirabilis crest is asymmetric along the midline (Sereno et al. 2026), but this study used a symmetrized artist mesh (Nobilis 2). Geometry is derived from a publicly available artist reconstruction, not from fossil scan data or holotype measurements — this is an exploratory hydrodynamic study of an idealized shape, not a test of the actual specimen's morphology.
-- The body no-slip condition was inherited from SimScale's default treatment of unassigned faces. Future runs should assign it explicitly.
+- **Force monitoring was never wired up.** The "Forces and moments 1" result control has zero assigned faces, so no drag/lift force value was produced and no force CSV exists. Any earlier numeric drag figure was never computed and must not be cited.
+- No explicit wall or slip boundary conditions exist in the model (only inlet and outlet are assigned). SimScale's implicit default treats every unassigned face — the body surface *and* the outer X/Z domain faces — as no-slip walls. A proper far-field treatment (slip or symmetry on outer faces) and an explicit body wall are required before force results can be trusted.
 
 ## Attribution
 
