@@ -1,5 +1,5 @@
 run,monitor,assigned_faces,component,force_x_N,force_y_N,force_z_N,note
-Run 3,"Forces and moments 1",1 (face 77 only),normalForce,9.72920747215,251.490940026,147.456185644,pressure+normal viscous on head surface
+Run 3,"Forces and moments 1","1 patch = face7, 44562 faces (head surface)",normalForce,9.72920747215,251.490940026,147.456185644,pressure+normal viscous on head surface; values match raw Run 3 case download (functionObjectProperties.gz), verified Aug 1 2026
 Run 3,"Forces and moments 1",1 (face 77 only),tangentialForce,0.0755961332617,19.5128700769,1.31619621445,shear on head surface
 Run 3,"Forces and moments 1",1 (face 77 only),normalMoment,-773.802831249,17.4321134011,22.9166021462,about center of rotation
 Run 3,"Forces and moments 1",1 (face 77 only),tangentialMoment,-41.1731627299,0.374628356336,0.145697928335,about center of rotation
