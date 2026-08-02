@@ -19,7 +19,12 @@ The short transient run also did not show sustained force oscillation during its
 produced a large startup impulse, so that run is inconclusive rather than evidence
 that oscillation is absent.
 
-## CFD setup
+The corrected steady baseline completed on August 2, 2026 with slip conditions
+on all four outer side faces. It converged cleanly and produced a stable force
+plateau. This improves the numerical baseline, but it does not resolve the
+geometry/control problem above.
+
+## CFD setup and run history
 
 | Parameter | Value |
 |-----------|-------|
@@ -28,17 +33,35 @@ that oscillation is absent.
 | Inlet | Uy = +2 m/s at minimum-Y face |
 | Outlet | Zero-gauge pressure at maximum-Y face |
 | Reference dynamic pressure | q = 0.5 rho U^2 = 1,995 Pa at 2 m/s |
-| Outer side boundaries | No explicit BCs; the model contains only two assigned boundary conditions (Velocity inlet 1, Pressure outlet 2). All unassigned faces, including the minimum/maximum X and Z outer faces, inherit SimScale's implicit default (no-slip wall). The intended "slip" far-field treatment is **not** in effect — this is a known limitation. |
-| Body surface | No explicit wall/slip BC assigned to the body; unassigned body faces inherit SimScale's implicit no-slip wall default with wall functions. The head surface appears in the topology as `face 77@Flow region` and is the single face assigned to the "Forces and moments 1" monitor. |
-| Force monitoring | "Forces and moments 1" monitor is assigned to **one face** (`face 77@Flow region`, the head surface). Run 3 (Jul 31, 2026) computed the force integral on the head. Earlier audit reads of "0 faces" were async-render artifacts. |
-| Iterations | 1,000 (steady, corrected run) |
-| Cases | One Reynolds number. Three steady runs are archived here (Run 1: baseline; Run 2: box-wide force integral; Run 3: head-surface force integral on face 77). A separate 0.5 s transient run was inspected in SimScale but has not been exported to this repository. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local behavior) |
-| Mesh | 1,187,479 cells / 384,169 nodes (Mesh 9, attached to the Incompressible sim). 803,422 tetrahedra, 236,231 prisms, 86,551 hexahedra, 61,275 pyramids; 645,141 quad + 2,010,052 triangle faces. No grid-independence check. |
+| Outer side boundaries | Run 3 had no explicit side BCs, so the minimum/maximum X and Z faces inherited no-slip. Corrected Run 29 assigns a slip wall to all four side faces (`Max X`, `Min X`, `Max Z`, `Min Z`). |
+| Body surface | No explicit body-wall BC is assigned; the unassigned head surface inherits SimScale's no-slip wall default with wall functions. The head appears as `face 77@Flow region`. |
+| Force monitoring | "Forces and moments 1" is assigned only to `face 77@Flow region`, the head surface, in both Run 3 and corrected Run 29. Earlier audit reads of "0 faces" were asynchronous UI-render artifacts. |
+| Iterations | 1,000 for Run 3 and corrected Run 29 |
+| Cases | One Reynolds number. Archived steady data include Run 2 (invalid box-wide force integral), Run 3 (head-force baseline with no-slip outer sides), and Run 29 (corrected slip far-field). A separate 0.5 s transient run was inspected in SimScale but has not been exported here. Re_head ≈ 3×10⁶ (head length, global regime), Re_crest ≈ 8×10⁴ (crest width, local behavior). |
+| Mesh | Run 3 used 1,187,479 cells / 384,169 nodes. The corrected Run 29 log reports 1,587,747 cells. Because the mesh and side boundaries both changed, their force difference cannot be attributed to one change alone. No grid-independence check has been completed. |
 | Geometry | Nobilis 2 artist mesh, voxel-solidified, SimScale Fit-to-Surface Wrap at resolution 8. The crest is fused to the head and the posterior head/neck is truncated. |
 
 ## Raw data
 
-The archived steady-run telemetry is in
+Corrected Run 29 telemetry is in
+`results/simscale/mirabilis_crest_present_U2mps_corrected_farfield_run29/`:
+
+| File | Contents |
+|------|----------|
+| `raw/forces_run29_corrected_farfield.csv` | Pressure, viscous, and total head-force histories on `face 77@Flow region` across 1,000 iterations |
+| `raw/residuals.csv` | Ux, Uy, Uz, k, omega, and p residual histories across 1,000 iterations |
+| `raw/Domain.csv` | Normalized domain convergence-monitor values |
+| `raw/Inlets.csv` | Normalized inlet convergence-monitor values |
+| `raw/Outlets.csv` | Normalized outlet convergence-monitor values |
+| `raw/Walls.csv` | Normalized wall convergence-monitor values |
+| `figures/run29_particle_trace_velocity.png` | Static velocity-colored particle-trace image for correspondence |
+| `figures/run29_particle_trace_velocity.gif` | Animated velocity-colored particle trace featured below |
+
+All six Run 29 exports contain 1,000 data rows, end at iteration 1,000,
+and were checked for complete numeric content after export. SimScale serializes
+their numeric fields as quoted text; the raw exports are preserved unchanged.
+
+The older Run 3 telemetry is in
 `results/simscale/mirabilis_crest_present_U2mps/`:
 
 | File | Contents |
@@ -54,13 +77,14 @@ The archived steady-run telemetry is in
 
 ## Methodology
 
-### Pressure-colored particle trace
+### Velocity-colored particle trace from corrected Run 29
 
-![Pressure-colored steady RANS particle trace](https://raw.githubusercontent.com/getanirao/spinosaurus-mirabilis-scaling/main/results/simscale/mirabilis_crest_present_U2mps/figures/spinosaurus_crest_flow.gif)
+![Velocity-colored corrected steady RANS particle trace](https://raw.githubusercontent.com/getanirao/spinosaurus-mirabilis-scaling/main/results/simscale/mirabilis_crest_present_U2mps_corrected_farfield_run29/figures/run29_particle_trace_velocity.gif)
 
-The GIF shows particle-trace paths colored by static gauge pressure from
-−3,693 to +2,269 Pa. It is a post-processing visualization of a steady RANS
-solution, not a transient water-entry animation.
+The GIF shows particle-trace paths colored by velocity magnitude from 0 to
+3.016 m/s. It is a post-processing visualization of corrected steady RANS Run
+29, not a transient water-entry animation. The moving particles travel through
+a fixed steady-state velocity field.
 
 ## Key observations
 
@@ -78,8 +102,13 @@ solution, not a transient water-entry animation.
   not a result of these simulations. A yaw sweep of this truncated whole-head
   mesh would mix crest loading with artifacts from the rest of the reconstructed
   and cut geometry.
-- Final residuals at iteration 1000: Ux = 3.02e-4, Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, and **p = 5.85e-3**. The residuals decay, but the pressure solution is not tightly converged (tolerance was 1e-6).
-- The pressure-colored particle trace shows localized acceleration and wake structure around the idealized head. It does not by itself measure crest drag or establish a diving penalty. Notably, the pressure field shows no strong pressure signature concentrated on the crest — which is consistent with the crest being edge-on to the flow (low axial projected area) *or* with the crest being under-resolved by the mesh. The two cannot be separated from this run alone.
+- Older Run 3 final residuals at iteration 1000 were Ux = 3.02e-4,
+  Uy = 1.64e-5, Uz = 4.30e-4, k = 9.28e-5, omega = 4.31e-6, and
+  p = 5.85e-3. Corrected Run 29 improved these to Ux = 1.62e-5,
+  Uy = 9.33e-7, Uz = 1.57e-5, k = 9.94e-5, omega = 3.72e-7,
+  and p = 1.89e-4. Its final local and global continuity errors were
+  2.01e-8 and 2.86e-12, respectively.
+- The corrected Run 29 velocity-colored particle trace illustrates streamline deflection and wake structure around the idealized head. It does not by itself measure crest drag or establish a diving penalty. Its gross flow pattern is visually similar to the older baseline, so the animation supplies no independent evidence of a crest effect.
 - There is no matched crest-ablated or *S. aegyptiacus* control run. A short
   transient run was completed, but it showed no sustained periodic regime within
   0.5 s and remained affected by startup and force drift. Without a defensible
@@ -92,8 +121,22 @@ solution, not a transient water-entry animation.
   The posterior head is also truncated, which makes whole-head yaw comparisons
   difficult to interpret. This is an exploratory study of an idealized shape,
   not a test of the actual specimen's morphology.
-- **Force monitoring is now wired.** The "Forces and moments 1" result control has one assigned face (`face 77@Flow region`; in the exported mesh this is patch `face7`, 44,562 wall faces — the head surface). Run 3 (Jul 31, 2026, steady, 1,000 iters) computed the force integral on the head surface. This CSV was re-downloaded (Aug 1, 2026) and verified against the raw case's `functionObjectProperties`: normal force (9.73, 251.49, 147.46) N and tangential force (0.076, 19.51, 1.32) N at 2 m/s, i.e. streamwise (drag) ≈ 271 N and vertical ≈ 149 N. This is a real force integral but is **not** a validated drag coefficient: pressure is not tightly converged (p = 5.85e-3), there is no grid-independence or control run, and the geometry is a symmetrized artist mesh. Treat the magnitude as approximate and screening-only. See `raw/forces_run3_face77.csv`. Raw solver inputs are preserved under `case-config/`. (Run 2's box-wide 7-face integral, in `raw/forces_run2_boxwide.csv`, is dominated by inlet/outlet momentum flux and is not a head-drag value.)
-- No explicit wall or slip boundary conditions exist in the model (only inlet and outlet are assigned). SimScale's implicit default treats every unassigned face — the body surface *and* the outer X/Z domain faces — as no-slip walls. A proper far-field treatment (slip or symmetry on outer faces) and an explicit body wall are required before force results can be trusted.
+- **Corrected force result:** Run 29 finished at total force
+  (Fx, Fy, Fz) = (−12.278, 287.913, 177.462) N. Over its final 100
+  iterations, the means were (−12.229, 287.793, 177.409) N with standard
+  deviations (0.029, 0.082, 0.044) N. The force history is therefore stable.
+  Compared with Run 3's approximately (9.81, 271.00, 148.78) N, streamwise
+  force increased about 6.2% and vertical force about 19.3%, while lateral
+  force changed sign. Because Run 29 also used a different cell count, this is
+  not a clean boundary-condition sensitivity result.
+- **Force monitoring is wired correctly.** The result control integrates only
+  `face 77@Flow region`; in the older exported mesh this is patch `face7`,
+  containing 44,562 wall faces. Run 2's seven-face box-wide integral is dominated
+  by inlet/outlet momentum flux and is not a head-force value.
+- Corrected Run 29 fixes the main far-field setup error by assigning slip to all
+  four outer X/Z faces. The head remains an unassigned surface and therefore
+  inherits SimScale's no-slip default. This is physically appropriate, although
+  an explicit named body-wall assignment would improve setup readability.
 
 ## Attribution
 
