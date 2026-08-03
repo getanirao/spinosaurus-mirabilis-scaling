@@ -1,0 +1,7 @@
+quantity,axis,normal_or_pressure,tangential_or_viscous,porous,total,unit,iteration,source
+force,x,-676.467205469,1.86030123712,0,-674.60690423188,N,1000,OpenFOAM functionObjectProperties
+force,y,378.719001309,20.1022883741,0,398.8212896831,N,1000,OpenFOAM functionObjectProperties
+force,z,96.5745398749,-0.208100262848,0,96.366439612052,N,1000,OpenFOAM functionObjectProperties
+moment,x,4.10079379299,0.0756026529392,0,4.1763964459292,N_m,1000,OpenFOAM functionObjectProperties
+moment,y,-25.0055800739,0.536960813357,0,-24.468619260543,N_m,1000,OpenFOAM functionObjectProperties
+moment,z,-444.738101801,10.9824215206,0,-433.7556802804,N_m,1000,OpenFOAM functionObjectProperties
